@@ -1,0 +1,26 @@
+# docker-compose-production.yml
+version: "2"
+services:
+  droppy:
+    container_name: droppy
+    image: silverwind/droppy
+    volumes:
+      - ./config:/config
+      - ./data:/files
+    restart: unless-stopped
+  your_app-letsencrypt:
+    image: linuxserver/letsencrypt
+    container_name: your_app-letsencrypt
+    ports:
+      - 80:80
+      - 443:8989
+    volumes:
+      - ./config/letsencrypt:/config
+    environment:
+      - EMAIL=roge.capaul@rcapaul.ch
+      - URL=rogecapaul.ch
+      - SUBDOMAINS=www,api
+      - VALIDATION=http
+      - TZ=Europe/Zurich
+      - PUID=0
+      - PGID=0
