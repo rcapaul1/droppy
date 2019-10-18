@@ -7,13 +7,15 @@ services:
     volumes:
       - ./config:/config
       - ./data:/files
+    ports:
+      - 4430:8989
     restart: unless-stopped
   your_app-letsencrypt:
     image: linuxserver/letsencrypt
     container_name: your_app-letsencrypt
     ports:
       - 80:80
-      - 443:8989
+      - 443:443
     volumes:
       - ./config/letsencrypt:/config
     environment:
